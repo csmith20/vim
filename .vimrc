@@ -1,36 +1,73 @@
-" My Vimrc file
-" Owner:  Chris Smith
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Author: 
+"       Chris Smith
+"
+" Version: 
+"       1.0
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Disable vi compatibility (emulation of old bugs)
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'bling/vim-airline'
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
 
-call vundle#end()
-filetype plugin indent on
+" Use indentation of previous line
+set autoindent
 
-augroup reload_vimrc " {
-	autocmd!
-	autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END "}
-
-syntax on
-
+" Use intelligent indentation for C
 set smartindent
 
-set shiftwidth=4
-set tabstop=4
-set expandtab
-set smarttab
+" Configure tabwidth and insert spaces instead of tabs
+set tabstop=4        " tab width is 4 spaces
+set shiftwidth=4     " indent also with 4 spaces
+set expandtab        " expand tabs to spaces
 
+" Turn syntax highlighting on
+set t_Co=256
+syntax on
+
+" Show line numbers
 set number
 
-let g:airline_powerline_fonts=0
-let g:airline_theme = 'badwolf'
-set laststatus=2
-set t_Co=256
-set noshowmode
+" Highlight matching braces
+set showmatch
+
+"Always show current position
+set ruler
+
+" Highlight all Search Matches
+set hlsearch
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax enable
+
+set background=dark
+
+" Set colorscheme
+" colorscheme jellybeans 
+colorscheme sublimemonokai 
+
+" Set Page size Column stripe
+set colorcolumn=120
+highlight ColorColumn ctermbg=darkgray
+
+augroup project
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
+
+" Change <Leader> key
+let mapleader=","
+
+" Open a new tab and search for something
+nmap <leader>a :tab split<CR>:Ack ""<Left>
+
+" Immediately search for the word under the cursor in a new tab
+nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
 
